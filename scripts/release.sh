@@ -6,6 +6,13 @@ command -v jq >/dev/null
 command -v git >/dev/null
 command -v sed >/dev/null
 
+version_type=$1
+
+if [[ "$version_type" != "patch" && "$version_type" != "minor" && "$version_type" != "major" ]]; then
+    echo "usage: $0 {patch|minor|major}" >&2
+    exit 2  
+fi
+
 branch=$(git branch --show-current)
 if [[ "$branch" != "main" && "$branch" != "master" ]]; then
   echo "not on main or master branch (current: $branch)"
@@ -34,13 +41,6 @@ previous_version=$(
   cargo metadata --no-deps --format-version 1 \
     | jq -r '.packages[0].version'
 )
-
-version_type=$1
-
-if [[ "$version_type" != "patch" && "$version_type" != "minor" && "$version_type" != "major" ]]; then
-    echo "usage: $0 {patch|minor|major}" >&2
-    exit 2  
-fi
 
 IFS='.' read -r major minor patch <<< "$previous_version"
 
