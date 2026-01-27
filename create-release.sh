@@ -6,10 +6,29 @@ command -v jq >/dev/null
 command -v git >/dev/null
 command -v sed >/dev/null
 
-git diff --quiet || {
+branch=$(git branch --show-current)
+if [[ "$branch" != "main" && "$branch" != "master" ]]; then
+  echo "not on main or master branch (current: $branch)"
+  exit 1
+fi
+
+git diff --quiet && git diff --cached --quiet || {
   echo "working tree dirty, commit or stash your changes first"
+  git status --short
   exit 1
 }
+
+git fetch origin
+
+git rev-parse @ @{u} >/dev/null 2>&1 || {
+  echo "no upstream set for current branch"
+  exit 1
+}
+
+if [[ "$(git rev-parse @)" != "$(git rev-parse @{u})" ]]; then
+  echo "local branch is not up to date with origin"
+  exit 1
+fi
 
 previous_version=$(
   cargo metadata --no-deps --format-version 1 \
