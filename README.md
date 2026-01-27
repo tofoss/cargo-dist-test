@@ -6,10 +6,10 @@ cargo-dist automates building binaries and creates installation scripts.
 
 **MacOS/Linux**
 ```
-curl --proto '=https' --tlsv1.2 -LsSf https://github.com/tofoss/cargo-dist-test/releases/download/v0.1.1/dist-test-installer.sh | sh
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/tofoss/cargo-dist-test/releases/download/v0.4.1/dist-test-installer.sh | sh
 ```
 
 **Windows**
 ```
-powershell -ExecutionPolicy Bypass -c "irm https://github.com/tofoss/cargo-dist-test/releases/download/v0.1.1/dist-test-installer.ps1 | iex"
+powershell -ExecutionPolicy Bypass -c "irm https://github.com/tofoss/cargo-dist-test/releases/download/v0.4.1/dist-test-installer.ps1 | iex"
 ```
