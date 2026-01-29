@@ -1,3 +1,3 @@
 fn main() {
-    println!("How does auto update work?");
+    println!("How does pull requests work?");
 }
